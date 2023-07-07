@@ -1,0 +1,16 @@
+---
+import AnimeItem from "./AnimeItem.astro"
+
+const {animeData}=Astro.props
+---
+
+
+<ul class="grid grid-cols-1 md:grid-cols-3 md:gap-4 xl:grid-cols-4 xl:gap-4">
+    {
+        animeData.map(({mal_id, title, images})=>{
+            return (
+                <AnimeItem id={mal_id} title={title} img={images.jpg.large_image_url}></AnimeItem>
+            )
+        })
+    }
+</ul>

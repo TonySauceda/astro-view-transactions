@@ -1,0 +1,18 @@
+---
+export interface Props{
+    id:string,
+    title:string,
+    img: string
+}
+
+const {id, title, img}=Astro.props
+---
+<li>
+    <a class="hover:scale-110 inline-block transition-all hover:contrast-125 hover:shadow-2xl"
+        href=`/${id}`>
+        <img class="h-full object-cover w-full max-w-full rounded" 
+            src=`${img}`
+            alt=`Portada del anime ${title}`
+            style={`view-transition-name: anime-${id}`}>
+    </a>
+</li>

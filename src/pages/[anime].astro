@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Title from '../components/Title.astro';
+
+const {anime}=Astro.params
+
+const GetAnime = async (animeId) => {
+    const baseUrl = new URL(`https://api.jikan.moe/v4/anime/${animeId}`)
+
+	const response = await fetch(baseUrl)
+
+	const responseJson = await response.json()
+
+	return responseJson.data
+}
+
+var animeData = await GetAnime(anime)
+---
+
+<Layout title="Astro - Animes en emisión">
+	<main class="m-auto max-w-6xl text-center">
+        <Title></Title>
+        <div class="grid grid-cols-1 md:grid-cols-[350px_1fr] gap-x-12 mt-4 md:mt-20 px-8">
+          <div class="flex flex-col mb-10">
+            <picture class="mb-8 w-full relative">
+              <img
+                class="rounded"
+                src={animeData.images.jpg.large_image_url}
+                alt={`Portada del anime ${animeData.title}`}
+                style={`view-transition-name: anime-${animeData.mal_id}`}
+              />
+            </picture>
+          </div>
+          <aside class="mt-10 md:mt-0">
+            <h1 class="text-4xl font-black mb-4">{animeData.title}</h1>
+            <p class="text-lg mb-4">{animeData.synopsis}</p>
+          </aside>
+        </div>
+      </main>
+</Layout>
